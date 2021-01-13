@@ -41,7 +41,7 @@ AppModule = __decorate([
             podcasts_module_1.PodcastsModule,
             users_module_1.UsersModule,
             jwt_module_1.JwtModule.forRoot({
-                privateKey: process.env.PRIVATE_KEY,
+                privateKey: '3B4Iogjbf5doiZdqErwYNIWJ5fDNLeuV',
             }),
         ],
         controllers: [],
