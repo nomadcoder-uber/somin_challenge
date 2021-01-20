@@ -1,26 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 import {
   CreateEpisodeInput,
   CreateEpisodeOutput,
-} from './dtos/create-episode.dto';
+} from "./dtos/create-episode.dto";
 import {
   CreatePodcastInput,
   CreatePodcastOutput,
-} from './dtos/create-podcast.dto';
-import { UpdateEpisodeInput } from './dtos/update-episode.dto';
-import { UpdatePodcastInput } from './dtos/update-podcast.dto';
-import { Episode } from './entities/episode.entity';
-import { Podcast } from './entities/podcast.entity';
-import { CoreOutput } from './dtos/output.dto';
+} from "./dtos/create-podcast.dto";
+import { UpdateEpisodeInput } from "./dtos/update-episode.dto";
+import { UpdatePodcastInput } from "./dtos/update-podcast.dto";
+import { Episode } from "./entities/episode.entity";
+import { Podcast } from "./entities/podcast.entity";
+import { CoreOutput } from "./dtos/output.dto";
 import {
   PodcastOutput,
   EpisodesOutput,
   EpisodesSearchInput,
   GetAllPodcastsOutput,
   GetEpisodeOutput,
-} from './dtos/podcast.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+} from "./dtos/podcast.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { User } from "src/users/entities/user.entity";
 
 @Injectable()
 export class PodcastsService {
@@ -28,12 +29,12 @@ export class PodcastsService {
     @InjectRepository(Podcast)
     private readonly podcastRepository: Repository<Podcast>,
     @InjectRepository(Episode)
-    private readonly episodeRepository: Repository<Episode>,
+    private readonly episodeRepository: Repository<Episode>
   ) {}
 
   private readonly InternalServerErrorOutput = {
     ok: false,
-    error: 'Internal server error occurred.',
+    error: "Internal server error occurred.",
   };
 
   async getAllPodcasts(): Promise<GetAllPodcastsOutput> {
@@ -48,12 +49,13 @@ export class PodcastsService {
     }
   }
 
-  async createPodcast({
-    title,
-    category,
-  }: CreatePodcastInput): Promise<CreatePodcastOutput> {
+  async createPodcast(
+    host: User,
+    { title, category }: CreatePodcastInput
+  ): Promise<CreatePodcastOutput> {
     try {
       const newPodcast = this.podcastRepository.create({ title, category });
+      newPodcast.host = host;
       const { id } = await this.podcastRepository.save(newPodcast);
       return {
         ok: true,
@@ -68,7 +70,7 @@ export class PodcastsService {
     try {
       const podcast = await this.podcastRepository.findOne(
         { id },
-        { relations: ['episodes'] },
+        { relations: ["episodes"] }
       );
       if (!podcast) {
         return {
@@ -114,7 +116,7 @@ export class PodcastsService {
       ) {
         return {
           ok: false,
-          error: 'Rating must be between 1 and 5.',
+          error: "Rating must be between 1 and 5.",
         };
       } else {
         const updatedPodcast: Podcast = { ...podcast, ...payload };
@@ -145,7 +147,7 @@ export class PodcastsService {
     if (!ok) {
       return { ok, error };
     }
-    const episode = episodes.find(episode => episode.id === episodeId);
+    const episode = episodes.find((episode) => episode.id === episodeId);
     if (!episode) {
       return {
         ok: false,

@@ -20,6 +20,9 @@ import {
   CreateEpisodeOutput,
 } from "./dtos/create-episode.dto";
 import { UpdateEpisodeInput } from "./dtos/update-episode.dto";
+import { User } from "src/users/entities/user.entity";
+import { AuthUser } from "src/auth/auth-user.decorator";
+import { Role } from "src/auth/role.decorator";
 
 @Resolver((of) => Podcast)
 export class PodcastsResolver {
@@ -31,10 +34,12 @@ export class PodcastsResolver {
   }
 
   @Mutation((returns) => CreatePodcastOutput)
+  @Role(["Host"])
   createPodcast(
+    @AuthUser() authUser: User,
     @Args("input") createPodcastInput: CreatePodcastInput
   ): Promise<CreatePodcastOutput> {
-    return this.podcastsService.createPodcast(createPodcastInput);
+    return this.podcastsService.createPodcast(authUser, createPodcastInput);
   }
 
   @Query((returns) => PodcastOutput)
