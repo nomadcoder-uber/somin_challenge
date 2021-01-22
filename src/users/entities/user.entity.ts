@@ -3,37 +3,47 @@ import {
   Field,
   InputType,
   registerEnumType,
-} from '@nestjs/graphql';
-import { IsString, IsEmail } from 'class-validator';
-import { Column, Entity, BeforeInsert, BeforeUpdate } from 'typeorm';
-import { CoreEntity } from './core.entity';
-import * as bcrypt from 'bcrypt';
-import { InternalServerErrorException } from '@nestjs/common';
+} from "@nestjs/graphql";
+import { IsString, IsEmail } from "class-validator";
+import { Column, Entity, BeforeInsert, BeforeUpdate, OneToMany } from "typeorm";
+import { CoreEntity } from "./core.entity";
+import * as bcrypt from "bcrypt";
+import { InternalServerErrorException } from "@nestjs/common";
+import { Review } from "src/podcast/entities/review.entity";
+import { Subscribe } from "src/podcast/entities/subscribe.entity";
 
 export enum UserRole {
-  Host = 'Host',
-  Listener = 'Listener',
+  Host = "Host",
+  Listener = "Listener",
 }
 
-registerEnumType(UserRole, { name: 'UserRole' });
+registerEnumType(UserRole, { name: "UserRole" });
 
-@InputType('UserInputType', { isAbstract: true })
+@InputType("UserInputType", { isAbstract: true })
 @ObjectType()
 @Entity()
 export class User extends CoreEntity {
   @Column()
-  @Field(type => String)
+  @Field((type) => String)
   @IsEmail()
   email: string;
 
   @Column()
-  @Field(type => String)
+  @Field((type) => String)
   @IsString()
   password: string;
 
-  @Column({ type: 'simple-enum', enum: UserRole })
-  @Field(type => UserRole)
+  @Column({ type: "simple-enum", enum: UserRole })
+  @Field((type) => UserRole)
   role: UserRole;
+
+  @Field((type) => [Review])
+  @OneToMany((type) => Review, (review) => review.user)
+  review: Review[];
+
+  @Field((type) => [Subscribe])
+  @OneToMany((type) => Subscribe, (subscribe) => subscribe.user)
+  subscribe: Subscribe[];
 
   @BeforeInsert()
   @BeforeUpdate()

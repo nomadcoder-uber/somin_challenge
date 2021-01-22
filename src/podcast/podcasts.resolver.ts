@@ -3,7 +3,7 @@ import { PodcastsService } from "./podcasts.service";
 import { Podcast } from "./entities/podcast.entity";
 import {
   CreatePodcastInput,
-  CreatePodcastOutput
+  CreatePodcastOutput,
 } from "./dtos/create-podcast.dto";
 import { CoreOutput } from "./dtos/output.dto";
 import {
@@ -11,16 +11,25 @@ import {
   PodcastOutput,
   EpisodesOutput,
   EpisodesSearchInput,
-  GetAllPodcastsOutput
+  GetAllPodcastsOutput,
+  PodcastSearchInputbytitle,
 } from "./dtos/podcast.dto";
 import { UpdatePodcastInput } from "./dtos/update-podcast.dto";
 import { Episode } from "./entities/episode.entity";
 import {
   CreateEpisodeInput,
-  CreateEpisodeOutput
+  CreateEpisodeOutput,
 } from "./dtos/create-episode.dto";
 import { UpdateEpisodeInput } from "./dtos/update-episode.dto";
 import { Role } from "src/auth/role.decorator";
+import { Review } from "./entities/review.entity";
+import {
+  CreateReviewInput,
+  CreateReviewOutput,
+} from "./dtos/create-review.dto";
+import { User } from "src/users/entities/user.entity";
+import { AuthUser } from "src/auth/auth-user.decorator";
+import { SubscribeInput, SubscribeOutput } from "./dtos/subscribe.dto";
 
 @Resolver((of) => Podcast)
 export class PodcastsResolver {
@@ -96,5 +105,39 @@ export class EpisodeResolver {
     @Args("input") episodesSearchInput: EpisodesSearchInput
   ): Promise<CoreOutput> {
     return this.podcastService.deleteEpisode(episodesSearchInput);
+  }
+}
+
+@Resolver((of) => "Listener")
+export class ListenerResolver {
+  constructor(private readonly podcastsService: PodcastsService) {}
+
+  @Query((returns) => PodcastOutput)
+  @Role(["Listener"])
+  searchPodcasts(
+    @Args("input") podcastSearchInputbytitle: PodcastSearchInputbytitle
+  ): Promise<PodcastOutput> {
+    return this.podcastsService.searchPodcast(podcastSearchInputbytitle.title);
+  }
+  @Mutation((returns) => SubscribeOutput)
+  @Role(["Listener"])
+  subscribeToPodcast(
+    @Args("input") subscribeInput: SubscribeInput
+  ): Promise<SubscribeOutput> {
+    return this.podcastsService.subscribeToPodcast(subscribeInput);
+  }
+
+  @Query((returns) => SubscribeOutput)
+  @Role(["Listener"])
+  seeSubscriptions(
+    @Args("input") subscribeInput: SubscribeInput
+  ): Promise<SubscribeOutput> {
+    return this.podcastsService.seeSubscriptions(subscribeInput);
+  }
+
+  @Mutation((type) => CreateReviewOutput)
+  @Role(["Listener"])
+  createReview(@Args("input") ceateReviewInput: CreateReviewInput) {
+    return this.podcastsService.createReview(ceateReviewInput);
   }
 }

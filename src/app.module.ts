@@ -9,6 +9,8 @@ import { UsersModule } from "./users/users.module";
 import { JwtModule } from "./jwt/jwt.module";
 import { JwtMiddleware } from "./jwt/jwt.middleware";
 import { AuthModule } from "./auth/auth.module";
+import { Review } from "./podcast/entities/review.entity";
+import { Subscribe } from "./podcast/entities/subscribe.entity";
 
 @Module({
   imports: [
@@ -17,27 +19,27 @@ import { AuthModule } from "./auth/auth.module";
       database: "db.sqlite3",
       synchronize: true,
       logging: process.env.NODE_ENV !== "test",
-      entities: [Podcast, Episode, User]
+      entities: [Podcast, Episode, User, Review, Subscribe],
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
       context: ({ req }) => {
         return { user: req["user"] };
-      }
+      },
     }),
     JwtModule.forRoot({
-      privateKey: "8mMJe5dMGORyoRPLvngA8U4aLTF3WasX"
+      privateKey: "8mMJe5dMGORyoRPLvngA8U4aLTF3WasX",
     }),
     PodcastsModule,
     UsersModule,
-    AuthModule
-  ]
+    AuthModule,
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(JwtMiddleware).forRoutes({
       path: "/graphql",
-      method: RequestMethod.POST
+      method: RequestMethod.POST,
     });
   }
 }
