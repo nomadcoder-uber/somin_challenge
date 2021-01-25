@@ -1,9 +1,18 @@
-import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  makeVar,
+} from "@apollo/client";
 
 export const isLoggedInVar = makeVar(false);
 
+const link = createHttpLink({
+  uri: "https://podcast--backend.herokuapp.com/graphql",
+});
+
 export const client = new ApolloClient({
-  uri: "https://codesandbox.io/s/trusting-architecture-s6hri",
+  link: link,
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
