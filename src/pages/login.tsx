@@ -1,6 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { isLoggedInVar } from "../apollo";
 import { FormError } from "../components/form-error";
 import { loginMutationVariables,loginMutation } from "../__generated__/loginMutation";
 
@@ -24,8 +25,8 @@ export const Login = () => {
     const {
       login: {ok, token },
     } = data;
-    if (ok) {
-      console.log(token);
+    if (ok && token) {
+      isLoggedInVar(true)
     }
   };
   const [loginMutation, { data: loginMutationResult,loading }] = useMutation<
