@@ -1,1 +1,1 @@
-export const LS_TOKEN = "token";
+export const LOCALSTORAGE_TOKEN = "podcast-token";
