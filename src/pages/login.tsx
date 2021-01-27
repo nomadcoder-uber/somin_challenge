@@ -106,7 +106,7 @@ export const Login = () => {
       </form>
       <div>
         New to Podcast?{" "}
-        <Link to="/create-account" className="text-lime-600 hover:underline">
+        <Link to="/create-account" className="hover:underline text-lime-600">
           Create an Account
         </Link>
       </div>
