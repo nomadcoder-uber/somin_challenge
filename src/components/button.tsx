@@ -11,12 +11,12 @@ export const Button: React.FC<IButtonProps> = ({
   isValid,
   loading,
   text,
-  onClick
+  onClick,
 }) => (
   <button
     onClick={onClick}
-    className={`text-white py-3 focus:outline-none hover:bg-blue-400 transition-colors duration-500 ${
-      isValid && !loading ? "bg-blue-300" : "bg-gray-200 pointer-events-none"
+    className={`text-gray-200 py-3 bg-gray-500 ${
+      isValid && !loading ? "bg-gray-200" : "bg-gray-200 pointer-events-none"
     }`}
     disabled={loading ? true : false}
   >

@@ -1,4 +1,3 @@
-import { gql, useQuery } from "@apollo/client";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -6,8 +5,10 @@ import {
   Switch,
 } from "react-router-dom";
 import React from "react";
-import { meQuery } from "../__generated__/meQuery";
 import { Podcast } from "../pages/client/podcast";
+import { Header } from "../components/header";
+import { NotFound } from "../pages/404";
+import { useMe } from "../hooks/useMe";
 
 const ClientRoutes = [
   <Route path="/" exact>
@@ -15,17 +16,8 @@ const ClientRoutes = [
   </Route>,
 ];
 
-const ME_QUERY = gql`
-  query meQuery {
-    me {
-      id
-      email
-      role
-    }
-  }
-`;
 export const LoggedInRouter = () => {
-  const { data, loading, error } = useQuery<meQuery>(ME_QUERY);
+  const { data, loading, error } = useMe();
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -35,9 +27,13 @@ export const LoggedInRouter = () => {
   }
   return (
     <Router>
+      <Header />
       <Switch>
         {data.me.role && ClientRoutes}
-        <Redirect from="/potato" to="/" />
+        <Redirect to="/" />
+        <Route>
+          <NotFound />
+        </Route>
       </Switch>
     </Router>
   );
