@@ -12,6 +12,21 @@ export enum UserRole {
   Listener = "Listener",
 }
 
+export interface GetAllPodcastsInput {
+  page?: number | null;
+  pageSize?: number | null;
+}
+
+export interface GetEpisodesInput {
+  page?: number | null;
+  pageSize?: number | null;
+  podcastId: number;
+}
+
+export interface PodcastSearchInput {
+  id: number;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

@@ -4,7 +4,7 @@ module.exports = {
     tagName: "gql",
     service: {
       name: "Ubereats Challenge backend",
-      url: "https://podcast--backend.herokuapp.com/graphql",
+      url: "https://uber-eats-challenge.herokuapp.com/graphql",
       // optional headers
       headers: {
         authorization: "Bearer lkjfalkfjadkfjeopknavadf"

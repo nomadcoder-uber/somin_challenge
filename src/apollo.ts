@@ -25,7 +25,7 @@ export const makeLogout = () => {
   authTokenVar(null);
 };
 
-const HTTP_ENDPOINT = "https://podcast--backend.herokuapp.com/graphql";
+const HTTP_ENDPOINT = "https://uber-eats-challenge.herokuapp.com/graphql";
 
 const httpLink = createHttpLink({
   uri: HTTP_ENDPOINT,
