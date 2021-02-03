@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1612318291752" clover="3.2.0">
-  <project timestamp="1612318291753" name="All files">
-    <metrics statements="61" coveredstatements="31" conditionals="42" coveredconditionals="13" methods="18" coveredmethods="6" elements="121" coveredelements="50" complexity="0" loc="61" ncloc="61" packages="4" files="9" classes="9"/>
+<coverage generated="1612347851301" clover="3.2.0">
+  <project timestamp="1612347851301" name="All files">
+    <metrics statements="64" coveredstatements="38" conditionals="44" coveredconditionals="16" methods="19" coveredmethods="9" elements="127" coveredelements="63" complexity="0" loc="64" ncloc="64" packages="4" files="10" classes="10"/>
     <package name="components">
-      <metrics statements="7" coveredstatements="3" conditionals="4" coveredconditionals="3" methods="3" coveredmethods="1"/>
+      <metrics statements="10" coveredstatements="10" conditionals="6" coveredconditionals="6" methods="4" coveredmethods="4"/>
+      <file name="app.tsx" path="C:\Users\somin\Desktop\Day16\src\components\app.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="cond" truecount="2" falsecount="0"/>
+      </file>
       <file name="button.tsx" path="C:\Users\somin\Desktop\Day16\src\components\button.tsx">
-        <metrics statements="2" coveredstatements="2" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
       </file>
       <file name="form-error.tsx" path="C:\Users\somin\Desktop\Day16\src\components\form-error.tsx">
-        <metrics statements="2" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
       </file>
       <file name="header.tsx" path="C:\Users\somin\Desktop\Day16\src\components\header.tsx">
-        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-        <line num="4" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
       </file>
     </package>
     <package name="pages">
